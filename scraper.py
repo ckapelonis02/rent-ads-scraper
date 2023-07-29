@@ -1,9 +1,28 @@
 import pickle
 from bs4 import BeautifulSoup
+import requests
 
 xaniwtika_nea = 'https://www.haniotika-nea.gr/aggelies/?aggcat=en_katik_categ#'
-aggelies_path = 'html-files\Μικρές Αγγελίες - Χανιώτικα Νέα.htm'
 filtered_ads_file = 'filtered_ads.pkl'
+aggelies_path = 'xaniwtika_nea.html'
+
+try:
+	# Send a GET request to fetch the website's HTML content
+	response = requests.get(xaniwtika_nea)
+
+	# Raise an exception if the response status code is not 200 (OK)
+	response.raise_for_status()
+
+	# Save the HTML content to a file
+	with open(aggelies_path, 'w', encoding='utf-8') as file:
+		file.write(response.text)
+
+	print(f"Successfully saved the HTML content of {xaniwtika_nea} to {aggelies_path}")
+
+except requests.exceptions.RequestException as e:
+	print(f"Error fetching the website: {e}")
+except IOError as e:
+	print(f"Error writing the file: {e}")
 
 # Load the filtered ads from the pickle file
 with open(filtered_ads_file, 'rb') as file:
