@@ -25,8 +25,11 @@ except IOError as e:
 	print(f"Error writing the file: {e}")
 
 # Load the filtered ads from the pickle file
-with open(filtered_ads_file, 'rb') as file:
-	aggelies_old = pickle.load(file)
+try:
+	with open(filtered_ads_file, 'rb') as file:
+		aggelies_old = pickle.load(file)
+except FileNotFoundError as e:
+	aggelies_old = []
 
 # Read the HTML file
 with open(aggelies_path, 'r', encoding='utf-8') as file:
