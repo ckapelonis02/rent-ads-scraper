@@ -1,4 +1,4 @@
-# Χανιώτικα Νέα Αγγελίες Scraper
+# House Rent Ads Scraper
 
 ## Project Overview
 
